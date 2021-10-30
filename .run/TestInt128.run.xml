@@ -1,0 +1,22 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="TestInt128" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="int128" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="org.weakref.int128.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="org.weakref.int128" />
+    <option name="MAIN_CLASS_NAME" value="org.weakref.int128.TestInt128" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <option name="TEST_SEARCH_SCOPE">
+      <value defaultName="moduleWithDependencies" />
+    </option>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
