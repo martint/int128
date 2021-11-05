@@ -851,6 +851,33 @@ public class TestInt128
             });
         }
 
-        record Result(Int128 quotient, Int128 remainder, Exception error) {}
+        static class Result
+        {
+            private final Int128 quotient;
+            private final Int128 remainder;
+            private final Exception error;
+
+            public Result(Int128 quotient, Int128 remainder, Exception error)
+            {
+                this.quotient = quotient;
+                this.remainder = remainder;
+                this.error = error;
+            }
+
+            public Int128 quotient()
+            {
+                return quotient;
+            }
+
+            public Int128 remainder()
+            {
+                return remainder;
+            }
+
+            public Exception error()
+            {
+                return error;
+            }
+        }
     }
 }

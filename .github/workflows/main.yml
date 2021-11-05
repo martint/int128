@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: ['17']
+        java: ['11', '17']
     steps:
       - uses: actions/checkout@v1
       - name: Setup test JDK ${{ matrix.java }}
@@ -15,10 +15,10 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - run: echo "test_java_home=$JAVA_HOME" >> $GITHUB_ENV
-      - name: Setup build JDK 17
+      - name: Setup build JDK 11
         uses: actions/setup-java@v1
         with:
-          java-version: 17
+          java-version: 11
       - name: Maven Test
         run: mvn install -V -B -Dtest_java_home=${{ env.test_java_home }}
 

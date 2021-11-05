@@ -17,6 +17,7 @@ import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
 import java.math.BigInteger;
 import java.nio.ByteOrder;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.String.format;
@@ -25,7 +26,7 @@ import static org.weakref.int128.Primitives.unsignedBorrow;
 import static org.weakref.int128.Primitives.unsignedCarry;
 import static org.weakref.int128.Primitives.unsignedMultiplyHigh;
 
-public record Int128(long high, long low)
+public class Int128
 {
     public static final Int128 ZERO = new Int128(0, 0);
     public static final Int128 ONE = new Int128(0, 1);
@@ -33,6 +34,25 @@ public record Int128(long high, long low)
     public static final Int128 MIN_VALUE = new Int128(0x8000000000000000L, 0x0000000000000000L);
 
     private static final VarHandle LONG_VIEW = MethodHandles.byteArrayViewVarHandle(long[].class, ByteOrder.BIG_ENDIAN);
+
+    private final long high;
+    private final long low;
+
+    public Int128(long high, long low)
+    {
+        this.high = high;
+        this.low = low;
+    }
+
+    public long high()
+    {
+        return high;
+    }
+
+    public long low()
+    {
+        return low;
+    }
 
     public static Int128 valueOf(BigInteger value)
     {
@@ -260,10 +280,10 @@ public record Int128(long high, long low)
 
     public static Int128 multiply(Int128 a, Int128 b)
     {
-        long aLow = a.low();
-        long aHigh = a.high();
-        long bLow = b.low();
-        long bHigh = b.high();
+        long aLow = a.low;
+        long aHigh = a.high;
+        long bLow = b.low;
+        long bHigh = b.high;
 
         long z1High = unsignedMultiplyHigh(aLow, bLow);
         long z1Low = aLow * bLow;
@@ -278,10 +298,10 @@ public record Int128(long high, long low)
 
     public static Int128 multiplyExact(Int128 a, Int128 b)
     {
-        long aLow = a.low();
-        long aHigh = a.high();
-        long bLow = b.low();
-        long bHigh = b.high();
+        long aLow = a.low;
+        long aHigh = a.high;
+        long bLow = b.low;
+        long bHigh = b.high;
 
         long z1High = unsignedMultiplyHigh(aLow, bLow);
         long z1Low = aLow * bLow;
@@ -466,6 +486,25 @@ public record Int128(long high, long low)
     public String toString()
     {
         return format("0x%016XL 0x%016XL: %s", high, low, toBigInteger());
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Int128 int128 = (Int128) o;
+        return high == int128.high && low == int128.low;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(high, low);
     }
 
     public BigInteger toBigInteger()
@@ -776,5 +815,25 @@ public record Int128(long high, long low)
         remainder.low((uhat << 32 | lowLow) - quotientLow * divisor >>> shift);
     }
 
-    public record DivisionResult(Int128 quotient, Int128 remainder) {}
+    public static class DivisionResult
+    {
+        private final Int128 quotient;
+        private final Int128 remainder;
+
+        public DivisionResult(Int128 quotient, Int128 remainder)
+        {
+            this.quotient = quotient;
+            this.remainder = remainder;
+        }
+
+        public Int128 quotient()
+        {
+            return quotient;
+        }
+
+        public Int128 remainder()
+        {
+            return remainder;
+        }
+    }
 }
