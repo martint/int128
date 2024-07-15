@@ -53,11 +53,4 @@ class MoreMath
     {
         return value & (test >> 63);
     }
-
-    // TODO: replace with JDK 18's Math.unsignedMultiplyHigh
-    public static long unsignedMultiplyHigh(long x, long y)
-    {
-        // HD 8-3: High-Order Product Signed from/to Unsigned
-        return Math.multiplyHigh(x, y) + ifNegative(x, y) + ifNegative(y, x);
-    }
 }

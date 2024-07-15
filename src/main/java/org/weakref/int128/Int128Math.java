@@ -13,6 +13,8 @@
  */
 package org.weakref.int128;
 
+import static java.lang.Math.unsignedMultiplyHigh;
+
 public final class Int128Math
 {
     private Int128Math() {}
@@ -138,7 +140,7 @@ public final class Int128Math
 
     public static long multiplyHigh(long aHigh, long aLow, long bHigh, long bLow)
     {
-        return MoreMath.unsignedMultiplyHigh(aLow, bLow) + aLow * bHigh + aHigh * bLow;
+        return unsignedMultiplyHigh(aLow, bLow) + aLow * bHigh + aHigh * bLow;
     }
 
     public static long multiplyLow(long aHigh, long aLow, long bHigh, long bLow)

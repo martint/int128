@@ -19,10 +19,10 @@ import java.math.BigInteger;
 import java.nio.ByteOrder;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static java.lang.Math.unsignedMultiplyHigh;
 import static org.weakref.int128.MoreMath.ifNegative;
 import static org.weakref.int128.MoreMath.unsignedBorrow;
 import static org.weakref.int128.MoreMath.unsignedCarry;
-import static org.weakref.int128.MoreMath.unsignedMultiplyHigh;
 
 public record Int128(long high, long low)
         implements Comparable<Int128>
